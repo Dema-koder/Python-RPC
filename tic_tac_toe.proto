@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+service TicTacToe {
+  rpc CreateGame(CreateGameRequest) returns (Game);
+  rpc GetGame(GetGameRequest) returns (Game);
+  rpc MakeMove(MakeMoveRequest) returns (Game);
+}
+
+message CreateGameRequest {}
+
+message GetGameRequest {
+  int32 game_id = 1;
+}
+
+message MakeMoveRequest {
+  int32 game_id = 1;
+  Move move = 2;
+}
+
+message Game {
+  int32 id = 1;
+  bool is_finished = 2;
+  optional Mark winner = 3;
+  optional Mark turn = 4;
+  repeated Move moves = 5;
+}
+
+message Move {
+  Mark mark = 1;
+  int32 cell = 2;
+}
+
+enum Mark {
+  MARK_NOUGHT = 0;
+  MARK_CROSS = 1;
+}
